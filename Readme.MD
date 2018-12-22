@@ -1,0 +1,1 @@
+docker-bind the image debian:stretch-slim
