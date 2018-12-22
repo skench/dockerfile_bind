@@ -6,8 +6,21 @@ RUN addgroup --gid 1000 bind \
 	&& chown bind:bind /data
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
-	bind9 \
+	bind9  dnsutils \
 	&& apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 	
-ADD 
-RUN chmod +x 
+
+COPY ./docker_create_folder.sh /opt/docker_create_folder.sh
+CMD ["chmod",  "777", "/opt/docker_create_folder.sh"]
+CMD ["/opt/docker_create_folder.sh"]
+
+EXPOSE 53/tcp
+EXPOSE 53/udp
+EXPOSE 953/tcp
+EXPOSE 953/udp
+
+ADD docker-entrypoint.sh /docker-entrypoint.sh
+RUN chmod +x /docker-entrypoint.sh
+
+ENTRYPOINT ["/docker-entrypoint.sh"]
+CMD service bind9 restart && tail -F /var/log/bind/bind.log
