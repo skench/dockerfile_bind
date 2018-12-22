@@ -10,9 +10,9 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 	&& apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 	
 
-COPY ./docker_create_folder.sh /opt/docker_create_folder.sh
-CMD ["chmod",  "777", "/opt/docker_create_folder.sh"]
-CMD ["/opt/docker_create_folder.sh"]
+ADD docker_create_folder.sh /docker_create_folder.sh
+RUN chmod +x docker_create_folder.sh
+CMD ["/docker_create_folder.sh"]
 
 EXPOSE 53/tcp
 EXPOSE 53/udp
