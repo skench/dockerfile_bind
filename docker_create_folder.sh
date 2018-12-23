@@ -4,6 +4,7 @@ mkdir -p /var/cache/bind/
 mkdir -p /var/log/bind/
 chown -R bind:bind /var/cache/bind/
 chown -R bind:bind /var/log/bind/
+touch bind.log /var/log/bind/
 
 echo "logging {" >> /etc/bind/named.conf
 echo "	channel bind.log {" >> /etc/bind/named.conf
